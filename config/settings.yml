@@ -1,0 +1,1 @@
+activerecord_id_encrypted_encoded_key: <%= ENV['ACTIVERECORD_ID_ENCRYPTED_ENCODED_KEY'] %>
