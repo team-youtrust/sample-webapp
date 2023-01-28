@@ -1,0 +1,54 @@
+version: '3'
+services:
+  app: &app
+    build:
+      context: .
+      dockerfile: .docker/local/Dockerfile
+    tty: true
+    stdin_open: true
+    working_dir: /app
+    volumes:
+      - .:/app:cached
+      - log_volume:/app/log
+      - tmp_volume:/app/tmp
+      - vendor_volume:/app/vendor
+    environment:
+      - MYSQL_HOST=db
+      - MYSQL_USERNAME=root
+      - MYSQL_PASSWORD=password
+      - MYSQL_PORT=3306
+    ports:
+      - 3000:3000
+    depends_on:
+      - db
+    command: bash -c "
+      bundle install --jobs=4 &&
+      ./bin/run_server.sh"
+    container_name: sample_app
+    networks:
+      - app-net
+
+  db:
+    image: mysql:5.7.30
+    platform: linux/amd64
+    ports:
+      - 3306:3306
+    volumes:
+      - sample_db:/var/lib/mysql:delegated
+      - ./db/mysql/my.cnf:/etc/mysql/conf.d/my.cnf
+    environment: &db_environment
+      MYSQL_DATABASE: sample_webapp_development
+      MYSQL_USER: root
+      MYSQL_ROOT_PASSWORD: password
+    networks:
+      - app-net
+    container_name: sample_db
+
+volumes:
+  sample_db:
+  log_volume:
+  tmp_volume:
+  vendor_volume:
+
+networks:
+  app-net:
