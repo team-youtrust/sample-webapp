@@ -7,9 +7,10 @@ RSpec.describe FriendRequest::SendUseCase do
 
       let(:operation_user) { create(:user) }
       let(:to_user) { create(:user) }
+      let(:friend_request) { create(:friend_request, from_user: operation_user, to_user: to_user) }
 
       before do
-        command = instance_double(FriendRequest::CreateCommand, success?: true)
+        command = instance_double(FriendRequest::CreateCommand, success?: true, friend_request: friend_request)
         allow_to_receive_mocked_run(FriendRequest::CreateCommand).and_return(command)
       end
 
@@ -39,9 +40,10 @@ RSpec.describe FriendRequest::SendUseCase do
 
         let(:operation_user) { create(:user) }
         let(:to_user) { create(:user) }
+        let(:friend_request) { create(:friend_request, from_user: operation_user, to_user: to_user) }
 
         before do
-          command = instance_double(FriendRequest::CreateCommand, success?: false)
+          command = instance_double(FriendRequest::CreateCommand, success?: false, friend_request: friend_request)
           allow_to_receive_mocked_run(FriendRequest::CreateCommand).and_return(command)
         end
 

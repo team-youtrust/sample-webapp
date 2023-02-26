@@ -3,10 +3,11 @@ class Api::FriendRequest::AcceptController < Api::ApplicationController
 
   def update
     friend_request = FriendRequest.find_by_encrypted_id!(params[:id])
-    result = FriendRequest::AcceptUseCase.run(operation_user: current_user, friend_request: friend_request)
+    use_case = FriendRequest::AcceptUseCase.run(operation_user: current_user, friend_request: friend_request)
 
-    if result.success?
-      head :ok
+    if use_case.success?
+      @friend_request = use_case.friend_request
+      render :update, status: :ok
     else
       head :bad_request
     end

@@ -5,6 +5,18 @@ class Api::FriendRequest::FriendRequestsController < Api::ApplicationController
     @friend_requests = fetch_friend_requests_by(param_ids)
   end
 
+  def create
+    to_user = User.find_by_encrypted_id!(params[:to_user_id])
+    use_case = FriendRequest::SendUseCase.run(operation_user: current_user, to_user: to_user)
+
+    if use_case.success?
+      @friend_request = use_case.friend_request
+      render :create, status: :created
+    else
+      head :bad_request
+    end
+  end
+
   private
 
   def fetch_friend_requests_by(ids)

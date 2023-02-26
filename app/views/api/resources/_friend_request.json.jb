@@ -1,0 +1,13 @@
+{
+  id: friend_request.encrypted_id,
+  status: friend_request.status,
+  created_at: friend_request.created_at.to_i,
+  from_user: {
+    id: friend_request.from_user.encrypted_id,
+    name: friend_request.from_user.name,
+  },
+  to_user: {
+    id: friend_request.to_user.encrypted_id,
+    name: friend_request.to_user.name,
+  },
+}

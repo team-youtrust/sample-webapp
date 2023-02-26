@@ -1,7 +1,7 @@
 class FriendRequest::SendUseCase
   include UseCase
 
-  attr_reader :operation_user, :to_user
+  attr_reader :operation_user, :to_user, :friend_request
 
   def run
     command = ApplicationRecord.transaction do
@@ -10,6 +10,7 @@ class FriendRequest::SendUseCase
     end
 
     if command && command.success?
+      @friend_request = command.friend_request
       enqueue_notification_job
     else
       errors.add(:to_user, :invalid)

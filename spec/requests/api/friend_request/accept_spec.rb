@@ -12,11 +12,28 @@ RSpec.describe '/api/friend_requests/:id/accept' do
         end
 
         it '201' do
-          use_case = instance_double(FriendRequest::AcceptUseCase, success?: true)
+          use_case = instance_double(FriendRequest::AcceptUseCase, success?: true, friend_request: friend_request)
           allow_to_receive_mocked_run(FriendRequest::AcceptUseCase).and_return(use_case)
 
           put "/api/friend_requests/#{friend_request.encrypted_id}/accept"
           expect(response).to have_http_status(:ok)
+          expect(response_body).to eq(
+            {
+              'friend_request' => {
+                'id' => friend_request.encrypted_id,
+                'status' => friend_request.status,
+                'created_at' => friend_request.created_at.to_i,
+                'from_user' => {
+                  'id' => friend_request.from_user.encrypted_id,
+                  'name' => friend_request.from_user.name,
+                },
+                'to_user' => {
+                  'id' => friend_request.to_user.encrypted_id,
+                  'name' => friend_request.to_user.name,
+                },
+              },
+            },
+          )
         end
       end
     end
@@ -54,7 +71,7 @@ RSpec.describe '/api/friend_requests/:id/accept' do
         end
 
         it '400' do
-          use_case = instance_double(FriendRequest::AcceptUseCase, success?: false)
+          use_case = instance_double(FriendRequest::AcceptUseCase, success?: false, friend_request: friend_request)
           allow_to_receive_mocked_run(FriendRequest::AcceptUseCase).and_return(use_case)
 
           put "/api/friend_requests/#{friend_request.encrypted_id}/accept"
