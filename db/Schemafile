@@ -1,5 +1,41 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
+create_table "friend_requests", id: { type: :bigint, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_bin", options: "ENGINE=InnoDB ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  t.integer "from_user_id", null: false, unsigned: true
+  t.integer "to_user_id", null: false, unsigned: true
+  t.integer "status", null: false, unsigned: true
+  t.boolean "is_read", default: false, null: false
+  t.datetime "created_at", null: false
+  t.datetime "updated_at", null: false
+  t.index ["from_user_id", "to_user_id"], name: "i1", unique: true
+  t.index ["to_user_id", "from_user_id"], name: "i2", unique: true
+end
+
+create_table "posts", id: { type: :bigint, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_bin", options: "ENGINE=InnoDB ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  t.integer "user_id", null: false, unsigned: true
+  t.text "content", null: false
+  t.datetime "created_at", null: false
+  t.index ["user_id"], name: "i1"
+end
+
+create_table "user_friends", id: { type: :bigint, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_bin", options: "ENGINE=InnoDB ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  t.integer "user_id", null: false, unsigned: true
+  t.integer "friend_user_id", null: false, unsigned: true
+  t.datetime "created_at", null: false
+  t.index ["user_id", "friend_user_id"], name: "i1", unique: true
+end
+
+create_table "user_notifications", id: { type: :bigint, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_bin", options: "ENGINE=InnoDB ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  t.integer "user_id", null: false, unsigned: true
+  t.integer "notification_type", null: false, unsigned: true
+  t.integer "from_user_id", null: false, unsigned: true
+  t.text "body"
+  t.boolean "is_read", default: false, null: false
+  t.datetime "created_at", null: false
+  t.datetime "updated_at", null: false
+  t.index ["user_id"], name: "i1"
+end
+
 create_table "users", id: { type: :bigint, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_bin", options: "ENGINE=InnoDB ROW_FORMAT=DYNAMIC", force: :cascade do |t|
   t.string "name", null: false
   t.datetime "created_at", null: false

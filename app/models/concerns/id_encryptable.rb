@@ -29,6 +29,10 @@ module IdEncryptable
       find(decrypt_id(enc_id))
     end
 
+    def self.find_by_encrypted_id(enc_id)
+      find_by(id: decrypt_id(enc_id))
+    end
+
     def self.id_cipher_key
       Digest::SHA256.digest(
         [
