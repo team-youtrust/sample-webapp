@@ -25,7 +25,7 @@ class UserNotification < ApplicationRecord
     notification_type_become_friend: 1,
   }
 
-  def decoded_body
+  def parsed_body
     JSON.parse(body)
   end
 end

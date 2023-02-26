@@ -8,7 +8,9 @@ Rails.application.routes.draw do
     get 'users/:id/friends', to: 'friends#index'
     get 'search_users', to: 'search_users#index'
 
-    # TODO: サービス内通知関連
+    # サービス内通知
+    get 'user_notifications', to: 'user_notifications#index'
+    get 'user_notifications/:ids', to: 'user_notifications#show'
 
     #
     # つながり申請関連

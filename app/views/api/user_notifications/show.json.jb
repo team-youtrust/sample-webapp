@@ -1,0 +1,17 @@
+resources = @user_notifications.map do |user_notification|
+  {
+    id: user_notification.encrypted_id,
+    notification_type: user_notification.notification_type,
+    body: user_notification.parsed_body,
+    is_read: user_notification.is_read,
+    created_at: user_notification.created_at.to_i,
+    from_user: {
+      id: user_notification.from_user.encrypted_id,
+      name: user_notification.from_user.name,
+    },
+  }
+end
+
+{
+  user_notifications: resources,
+}
