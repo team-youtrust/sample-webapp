@@ -1,0 +1,10 @@
+resources = @users.map do |user|
+  {
+    id: user.encrypted_id,
+    name: user.name,
+  }
+end
+
+{
+  users: resources,
+}

@@ -1,0 +1,9 @@
+resource = {
+  id: @user.encrypted_id,
+  name: @user.name,
+  relationship: current_user.relationship_with(@user),
+}
+
+{
+  user: resource,
+}

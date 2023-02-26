@@ -1,0 +1,18 @@
+resources = @friend_requests.map do |friend_request|
+  {
+    id: friend_request.encrypted_id,
+    created_at: friend_request.created_at.to_i,
+    from_user: {
+      id: friend_request.from_user.encrypted_id,
+      name: friend_request.from_user.name,
+    },
+    to_user: {
+      id: friend_request.to_user.encrypted_id,
+      name: friend_request.to_user.name,
+    },
+  }
+end
+
+{
+  friend_requests: resources,
+}
