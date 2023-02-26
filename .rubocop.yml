@@ -1,0 +1,174 @@
+require: rubocop-rspec
+
+AllCops:
+  NewCops: enable
+  Exclude:
+    - vendor/bundle/**/*
+    - tmp/**/*
+    - db/Schemafile
+    - bin/*
+  SuggestExtensions: false
+
+Style/AsciiComments:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Style/ConditionalAssignment:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Style/EmptyElse:
+  EnforcedStyle: empty
+
+Style/EmptyMethod:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/GuardClause:
+  Enabled: false
+
+Style/HashSyntax:
+  Enabled: false
+
+Style/InverseMethods:
+  Enabled: false
+
+Style/MultilineTernaryOperator:
+  Enabled: false
+
+Style/NegatedIf:
+  Enabled: false
+
+Style/NestedTernaryOperator:
+  Enabled: false
+
+Style/NumericLiterals:
+  Enabled: false
+
+Style/NumericPredicate:
+  Enabled: false
+
+Style/HashAsLastArrayItem:
+  Enabled: false
+
+Style/PercentLiteralDelimiters:
+  Enabled: false
+
+Style/RedundantAssignment:
+  Enabled: false
+
+Style/RedundantReturn:
+  Enabled: false
+
+Style/RedundantSelf:
+  Enabled: false
+
+Style/StderrPuts:
+  Exclude:
+    - 'bin/yarn'
+
+Style/SymbolArray:
+  Enabled: false
+
+Style/TrailingCommaInArguments:
+  EnforcedStyleForMultiline: consistent_comma
+
+Style/TrailingCommaInArrayLiteral:
+  EnforcedStyleForMultiline: consistent_comma
+
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: consistent_comma
+
+Style/SafeNavigation:
+  Enabled: false
+
+Style/WordArray:
+  Enabled: false
+
+Metrics/BlockLength:
+  Max: 50
+  Exclude:
+    - 'spec/**/*.rb'
+    - 'config/routes.rb'
+
+Metrics/MethodLength:
+  Max: 20
+
+Style/FormatString:
+  EnforcedStyle: sprintf
+
+Style/IfUnlessModifier:
+  Enabled: false
+
+Style/RedundantInterpolation:
+  Enabled: false
+
+Style/ZeroLengthPredicate:
+  Enabled: false
+
+RSpec/BeEq:
+  Enabled: false
+
+RSpec/BeNil:
+  Enabled: false
+
+RSpec/ContextWording:
+  Enabled: false
+
+RSpec/ExampleLength:
+  Max: 50
+
+RSpec/MultipleMemoizedHelpers:
+  Enabled: false
+
+RSpec/MultipleExpectations:
+  Max: 10
+
+RSpec/NamedSubject:
+  Enabled: false
+
+RSpec/NestedGroups:
+  Max: 5
+
+RSpec/PredicateMatcher:
+  Strict: true
+  EnforcedStyle: explicit
+  AllowedExplicitMatchers:
+    - have_http_status
+
+Layout/ArgumentAlignment:
+  EnforcedStyle: with_fixed_indentation
+
+Layout/EndAlignment:
+  EnforcedStyleAlignWith: variable
+
+Layout/FirstArrayElementIndentation:
+  Enabled: false
+
+Layout/LineEndStringConcatenationIndentation:
+  EnforcedStyle: indented
+
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
+
+Layout/MultilineOperationIndentation:
+  EnforcedStyle: indented
+
+Lint/EmptyBlock:
+  Exclude:
+    - 'spec/factories/**/*.rb'
+
+Lint/MissingSuper:
+  Exclude:
+    - 'app/models/notification/**/*.rb'
+    - 'lib/**/*.rb'
+    - 'app/lib/**/*.rb'
+
+Naming/BlockForwarding:
+  Enabled: false
