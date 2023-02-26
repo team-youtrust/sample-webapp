@@ -2,9 +2,11 @@ Rails.application.routes.draw do
   namespace :api, format: 'json' do
     post 'session', to: 'session#create' # ログイン
 
+    ##########
     #
     # ユーザー関連
     #
+    ##########
 
     # [ids] 検索結果のユーザーIDsを取得
     get 'search_users', to: 'search_users#index'
@@ -19,9 +21,11 @@ Rails.application.routes.draw do
     # [ids] 指定IDユーザーの友達IDsを取得
     get 'users/:id/friends', to: 'friends#index'
 
+    ##########
     #
     # サービス内通知
     #
+    ##########
 
     # [ids]
     get 'user_notifications', to: 'user_notifications#index'
@@ -29,9 +33,11 @@ Rails.application.routes.draw do
     # [resources]
     get 'user_notifications/:ids', to: 'user_notifications#show'
 
+    ##########
     #
     # つながり申請関連
     #
+    ##########
 
     # つながり申請の送信
     post 'friend_requests', to: 'friend_request/friend_requests#create'
