@@ -9,7 +9,7 @@ class Api::UsersController < Api::ApplicationController
 
   def fetch_users(ids)
     user_by_id = User.where(id: ids).index_by(&:id)
-    @users = ids.map { |id| user_by_id[id] }.compact
+    ids.map { |id| user_by_id[id] }.compact
   end
 
   def param_user_ids
