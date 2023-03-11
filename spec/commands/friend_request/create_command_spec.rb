@@ -59,6 +59,21 @@ RSpec.describe FriendRequest::CreateCommand do
           expect(subject.success?).to eq false
         end
       end
+
+      context '相手から既に受信済みの場合' do
+        subject { described_class.run(from_user: from_user, to_user: to_user) }
+
+        let(:from_user) { create(:user) }
+        let(:to_user) { create(:user) }
+
+        before do
+          create(:friend_request, from_user: to_user, to_user: from_user)
+        end
+
+        it '失敗する' do
+          expect(subject.success?).to eq false
+        end
+      end
     end
   end
 end
