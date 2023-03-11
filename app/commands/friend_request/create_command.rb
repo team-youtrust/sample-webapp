@@ -23,6 +23,7 @@ class FriendRequest::CreateCommand
 
   def validate_to_user
     errors.add(:to_user, :invalid) if FriendRequest.where(from_user: from_user, to_user: to_user).exists?
+    errors.add(:to_user, :invalid) if FriendRequest.where(from_user: to_user, to_user: from_user).exists?
     errors.add(:to_user, :invalid) if from_user == to_user
     errors.add(:to_user, :invalid) if from_user.friend_with?(to_user)
   end
