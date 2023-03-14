@@ -49,6 +49,14 @@ $ docker compose exec app bundle exec rspec
     - ここでは配信対象の絞り込みや通知送信判定等は行わない。単に通知を送信するだけ。
 - 必ず通知Job（`app/jobs/notification_job.rb`)経由で呼び出す。
 
+## 一覧取得系APIについて
+一覧系取得APIのロジックについて、「最初にフィルター＆ソート済みのIDsをすべて返して、あとは各ページごとにIDs指定でリソースを取得する」という方式を採用しています。[参考](https://tech.youtrust.co.jp/entry/thinking-about-scaleable-listing-logic)
+
+そのため取得系APIを下記の2種類に分けています。
+
+- 「フィルター＆ソート処理されたリソースのIDsを返すAPI」
+- 「指定IDsのリソースを返すAPI」
+
 ## 参考
 
 ### 技術ブログ
