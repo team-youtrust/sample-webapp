@@ -50,9 +50,9 @@ $ docker compose exec app bundle exec rspec
 - 必ず通知Job（`app/jobs/notification_job.rb`)経由で呼び出す。
 
 ## 一覧取得系APIについて
-一覧系取得APIのロジックについて、「最初にフィルター＆ソート済みのIDsをすべて返して、あとは各ページごとにIDs指定でリソースを取得する」という方式を採用しています。[参考](https://tech.youtrust.co.jp/entry/thinking-about-scaleable-listing-logic)
+一覧系取得APIのロジックについて、YOUTRUSTではスケーラブルで一貫性のあるリスティングロジックを実現するために、「最初にフィルター＆ソート済みのIDsをすべて返して、あとは各ページごとにIDs指定でリソースを取得する」という方式を採用しています。[参考](https://tech.youtrust.co.jp/entry/thinking-about-scaleable-listing-logic)
 
-そのため取得系APIを下記の2種類に分けています。
+そのため取得系APIを下記の2種類に分けて実装しています。
 
 - 「フィルター＆ソート処理されたリソースのIDsを返すAPI」
 - 「指定IDsのリソースを返すAPI」
