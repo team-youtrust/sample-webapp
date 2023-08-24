@@ -6,7 +6,7 @@ RSpec.describe FriendRequest::MarkAsReadUseCase do
       subject { described_class.run(operation_user: operation_user, friend_request: friend_request) }
 
       let(:operation_user) { create(:user) }
-      let(:friend_request) { create(:friend_request) }
+      let(:friend_request) { create(:friend_request, to_user: operation_user  ) }
 
       before do
         command = instance_double(FriendRequest::MarkAsReadCommand, success?: true)
@@ -17,11 +17,22 @@ RSpec.describe FriendRequest::MarkAsReadUseCase do
         expect(subject.success?).to eq true
         expect(FriendRequest::MarkAsReadCommand)
           .to have_received(:run)
-          .with(operation_user: operation_user, friend_request: friend_request)
+          .with(friend_request: friend_request)
       end
     end
 
     describe 'バリデーションについて' do
+      context '操作者に権限がない場合' do
+        subject { described_class.run(operation_user: operation_user, friend_request: friend_request) }
+
+        let(:operation_user) { create(:user) }
+        let(:friend_request) { create(:friend_request, to_user: create(:user)) } # `to_user` is not `current_user`
+
+        it '失敗する' do
+          expect(subject.success?).to eq false
+        end
+      end
+
       context 'つながり申請既読コマンドに失敗した場合' do
         subject { described_class.run(operation_user: operation_user, friend_request: friend_request) }
 

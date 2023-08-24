@@ -3,10 +3,12 @@ class FriendRequest::MarkAsReadUseCase
 
   attr_reader :operation_user, :friend_request
 
+  validate :validate_operation_user
+
   def run
     command = ApplicationRecord.transaction do
       lock_users
-      FriendRequest::MarkAsReadCommand.run(operation_user: operation_user, friend_request: friend_request)
+      FriendRequest::MarkAsReadCommand.run(friend_request: friend_request)
     end
 
     return if command && command.success?
@@ -23,5 +25,11 @@ class FriendRequest::MarkAsReadUseCase
 
   def lock_users
     User.lock_users(friend_request.from_user, friend_request.to_user)
+  end
+
+  def validate_operation_user
+    if operation_user != friend_request.to_user
+      errors.add(:operation_user, :invalid)
+    end
   end
 end
